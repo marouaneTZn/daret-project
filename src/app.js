@@ -44,4 +44,22 @@ periodicite.addEventListener("change", function () {
 });
 
 
+const dateDebutErreur = document.getElementById("date-debut-erreur")
+dateDebut.addEventListener("change", function () {
+    const aujourdHui = new Date();
+    const annee = aujourdHui.getFullYear();
+    const mois = String(aujourdHui.getMonth() + 1).padStart(2, "0");
+    const jour = String(aujourdHui.getDate()).padStart(2, "0");
+
+    const dateMinimum = `${annee}-${mois}-${jour}`;
+
+    if (dateDebut.value === "" || dateDebut.value < dateMinimum) {
+        dateDebutErreur.textContent =
+            "La date de début doit être aujourd'hui ou une date future.";
+        dateDebutErreur.classList.remove("hidden");
+    } else {
+        dateDebutErreur.textContent = "";
+        dateDebutErreur.classList.add("hidden");
+    }
+});
 
