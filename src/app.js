@@ -7,13 +7,78 @@ const cotisation = document.querySelector("#cotisation");
 const periodicite = document.querySelector("#periodicite");
 const dateDebut = document.querySelector("#date-debut");
 const participantsListe = document.querySelector("#participants-liste");
+const participantsCompteur = document.querySelector("#participants-compteur")
 
-
+const ajouterBtn = document.getElementById("ajouter-participant");
 const nomCercleErreur = document.querySelector("#nom-cercle-erreur");
 const cotisationErreur = document.getElementById("cotisation-erreur")
 const periodiciteErreur = document.getElementById("periodicite-erreur")
 const dateDebutErreur = document.getElementById("date-debut-erreur")
 const participantsErreur = document.getElementById("participants-erreur")
+
+
+let counter = 0
+function ajouterParticipant(){
+
+    if(counter >= 20){
+        return
+    }
+
+    const retirerBtn = document.createElement("button")
+
+    retirerBtn.type = "button"
+    retirerBtn.textContent = "Retirer"
+    retirerBtn.classList.add("retirer-participant")
+
+
+    const li = document.createElement("li")
+    
+    const input =document.createElement("input")
+    input.type = "text";
+    input.placeholder = "Prénom du participant";
+
+    li.append(input, retirerBtn)
+    participantsListe.append(li)
+
+
+    counter++
+    ajouterBtn.disabled = counter >= 20;
+
+    participantsCompteur.textContent = counter + " participants."
+
+    
+}
+for (let i = 0; i < 3; i++) {
+    ajouterParticipant();
+}
+
+ajouterBtn.addEventListener("click", function(){
+ ajouterParticipant();
+    
+})
+
+
+participantsListe.addEventListener("click", function(event) {
+    const bouton = event.target.closest(".retirer-participant");
+
+    if (!bouton) {
+        return;
+    }
+
+    if (counter <= 2) {
+        return;
+    }
+
+    bouton.closest("li").remove();
+
+    counter--;
+    ajouterBtn.disabled = counter >= 20;
+    participantsCompteur.textContent = counter + " participants";
+});
+
+
+
+
 
 
 daretForm.addEventListener("submit", function (event) {
