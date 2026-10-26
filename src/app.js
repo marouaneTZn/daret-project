@@ -18,6 +18,26 @@ const participantsErreur = document.getElementById("participants-erreur")
 
 
 let counter = 0
+
+
+
+
+function calculerNombreTours(nombreParticipants){
+    return nombreParticipants
+}
+
+
+function calculerTotalCycle(cotisation, nombreTours){
+    return cotisation * nombreTours
+}
+
+function calculerCagnotte(cotisation, nombreParticipants){
+    return cotisation * nombreParticipants
+}
+
+
+
+
 function ajouterParticipant(){
 
     if(counter >= 20){
@@ -192,8 +212,32 @@ daretForm.addEventListener("submit", function (event) {
         }
     }
 
+
     if (formulaireValide === false) {
-        return;
+    return;
+}
+
+    const dateChoisie = dateDebut.value;
+    const parties = dateChoisie.split("-");
+
+    const datePremierTour = new Date(
+        Number(parties[0]),
+        Number(parties[1]) - 1,
+        Number(parties[2])
+    )
+
+    const deuxiemeTour = new Date(datePremierTour);
+    
+    if(periodicite.value === "Hebdomadaire"){
+        deuxiemeTour.setDate(deuxiemeTour.getDate() + 7)
+
     }
+    else if(periodicite.value === "Tous les 15 jours"){
+        deuxiemeTour.setDate(deuxiemeTour.getDate() + 15)
+    }else if(periodicite.value === ""){
+        
+    }
+
+    console.log("hahoawaaaaaaaaaaa: " + deuxiemeTour + "hhhhhhhhhhhh");
 
 });
